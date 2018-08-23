@@ -19,5 +19,5 @@ from . import views
 
 app_name = 'trades'
 urlpatterns = [
-    path('', views.index),
+    path('', views.trades),
 ]
