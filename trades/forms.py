@@ -7,5 +7,5 @@ class EntryForm(forms.Form):
     entry_price = forms.DecimalField(max_digits=6, decimal_places=2)
     exit_price = forms.DecimalField(max_digits=6, decimal_places=2)
     pnl = forms.DecimalField(max_digits=10, decimal_places=2)
-    entry_comments = forms.CharField(max_length=500)
-    exit_comments = forms.CharField(max_length=500)
+    entry_comments = forms.CharField(max_length=500, widget=forms.Textarea)
+    exit_comments = forms.CharField(max_length=500, widget=forms.Textarea)

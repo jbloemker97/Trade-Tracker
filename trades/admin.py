@@ -1,3 +1,5 @@
 from django.contrib import admin
+from trades.models import Trades
 
-# Register your models here.
+# Register your models here
+admin.site.register(Trades)
