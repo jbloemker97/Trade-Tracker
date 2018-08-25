@@ -4,7 +4,8 @@ from .models import Trades
 from django.http import HttpResponseRedirect
 
 def index(request):
-    return render(request, 'trades/index.html')
+    trades = Trades.objects.all()
+    return render(request, 'trades/index.html', {'trades': trades})
 
 
 def trades(request):
@@ -35,6 +36,6 @@ def trades(request):
                 exit_comments=exit_comments
             ).save()
 
-            return HttpResponseRedirect('add/')
+            return HttpResponseRedirect('')
 
     return render(request, 'trades/form.html', {'form': form})
