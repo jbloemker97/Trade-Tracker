@@ -2,16 +2,48 @@
 {% block content %}
 <div class="container">
     <div class="jumbotron">
-        <div class="row">
-            <div class="cold-lg-12">
+        <div class="row text-center">
+            <div class="col-lg-6">
                 <h1>Trade History</h1>
+            </div>
+            <div class="col-lg-6">
+                <a href="{% url 'trades:add' %}" class="btn btn-success btn-lg">Add a Trade</a>
             </div>
         </div>
     </div>
-    <!-- <div class="row"> -->
-        {% for trade in trades %}
-        <p>{{trade.ticker}}</p><br>
-        {% endfor %}
-    <!-- </div> -->
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Ticker</th>
+            <th scope="col">Entry Date</th>
+            <th scope="col">Exit Date</th>
+            <th scope="col">Entry Price</th>
+            <th scope="col">Exit Price</th>
+            <th scope="col">PnL</th>
+            <th scope="col">Entry Comments</th>
+            <th scope="col">Exit Comments</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for trade in trades %}
+            <tr>
+                <th scope="row">{{ trade.ticker|upper }}</th>
+                <td>{{ trade.entry_date|date:"Y M d" }}</td>
+                <td>{{ trade.exit_date|date:"Y M d" }}</td>
+                <td>${{ trade.entry_price }}</td>
+                <td>${{ trade.exit_price }}</td>
+                <td>${{ trade.pnl }}</td>
+                <td>{{ trade.entry_comments|truncatechars:50 }}</td>
+                <td>{{ trade.exit_comments|truncatechars:50 }}</td>
+                <td><button type="button" class="btn btn-info btn-sm" id="delete">Update</button></td>
+                <td><button type="button" class="btn btn-primary btn-sm" id="delete">Delete</button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
 </div>
+
+
 {% endblock %}
