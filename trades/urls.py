@@ -6,4 +6,5 @@ app_name = 'trades'
 urlpatterns = [
     path('', views.index, name='index'),
     path('add/', views.trades, name='add'),
+    path('delete/<int:pk>', views.delete_trade, name='delete'),
 ]

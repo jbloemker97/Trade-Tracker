@@ -2,13 +2,14 @@
 
 {% block content %}
     <div class="container form-container">
-
-        <div class="row mt-3">
-            <div class="col-lg-6">
-                <h1 class="display-4">Add a New Trade</h1>
-            </div>
-            <div class="col-lg-6 text-center">
-                <a href="{% url 'trades:index' %}" class="btn btn-dark btn-lg">Go Back</a>
+        <div class="jumbotron">
+            <div class="row mt-3">
+                <div class="col-lg-6">
+                    <h1 class="display-4">Add a New Trade</h1>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <a href="{% url 'trades:index' %}" class="btn btn-dark btn-lg">Go Back</a>
+                </div>
             </div>
         </div>
 
@@ -16,6 +17,7 @@
         <form method="POST" action="{% url 'trades:add' %}" class="form-group">
             {% csrf_token %}
             {% for field in form %}
+                {{ field.errors }}
                 <label>{{field.label}}</label>
                 <input placeholder="{{ field.label }}" name="{{ field.name }}" class="form-control"/>
             {% endfor %}

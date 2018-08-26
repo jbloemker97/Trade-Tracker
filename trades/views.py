@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .forms import EntryForm
 from .models import Trades
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 
 def index(request):
     trades = Trades.objects.all()
@@ -36,6 +36,13 @@ def trades(request):
                 exit_comments=exit_comments
             ).save()
 
-            return HttpResponseRedirect('')
+            return HttpResponseRedirect('/')
 
     return render(request, 'trades/form.html', {'form': form})
+
+def delete_trade(request, pk):
+    if request.method == 'DELETE':
+        trade = get_object_or_404(Trades, pk=pk)
+        trade.delete()
+
+    return HttpResponse(status=200)
