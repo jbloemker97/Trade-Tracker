@@ -1,0 +1,21 @@
+<div class="modal fade bd-example-modal-lg" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="container p-4">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeUpdate">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            <form method="POST" action="{% url 'trades:add' %}" class="form-group" id="updateForm">
+                {% csrf_token %}
+                {% for field in form %}
+                    {{ field.errors }}
+                    <label>{{field.label}}</label>
+                    <input placeholder="{{ field.label }}" name="{{ field.name }}" class="form-control addInput"/>
+                {% endfor %}
+                <br>
+                <button type="submit" class="btn btn-success">Update</button>
+            </form>
+        </div>
+    </div>
+  </div>
+</div>

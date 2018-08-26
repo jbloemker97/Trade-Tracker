@@ -2,10 +2,12 @@ from django.shortcuts import render, get_object_or_404
 from .forms import EntryForm
 from .models import Trades
 from django.http import HttpResponseRedirect, HttpResponse
+from django.views.generic.edit import UpdateView
 
 def index(request):
+    form = EntryForm()
     trades = Trades.objects.all()
-    return render(request, 'trades/index.html', {'trades': trades})
+    return render(request, 'trades/index.html', {'trades': trades, 'form': form})
 
 
 def trades(request):
@@ -46,3 +48,7 @@ def delete_trade(request, pk):
         trade.delete()
 
     return HttpResponse(status=200)
+
+class TradeUpdate(UpdateView):
+    model = Trades
+    fields = ['ticker', 'entry_date', 'exit_date', 'entry_price', 'exit_price', 'pnl', 'entry_comments', 'exit_comments']
