@@ -4,6 +4,7 @@ from .models import Trades
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic.edit import UpdateView
 import datetime
+from django.urls import reverse
 
 def index(request):
     form = EntryForm()
@@ -39,7 +40,7 @@ def trades(request):
                 exit_comments=exit_comments
             ).save()
 
-            return HttpResponseRedirect('')
+            return HttpResponseRedirect(reverse("trades:index"))
 
     return render(request, 'trades/form.html', {'form': form})
 
