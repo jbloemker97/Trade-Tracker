@@ -7,6 +7,7 @@
         let form = document.querySelector("#updateForm");
         let input = form.querySelectorAll(".addInput");
         let updateButton = document.querySelectorAll(".updateButton");
+        let modal = document.querySelector("#updateModal");
         
         for (let i = 0; i < updateButton.length; i++) {
             updateButton[i].addEventListener("click", function (e) {
@@ -31,9 +32,18 @@
                         data[dataKeys[i]] = value;
                     }
 
-                    console.log(data);
+                    data['id'] = id;
+
+                    // Loop through data and format correctly
+                    for (key in data) {
+                        if (data[key][0] === '$') {
+                            data[key] = data[key].slice(1);
+                        }
+                    }
+
+                    $('#updateModal').modal('hide');
                     
-                    // Ajax Request
+                    //Ajax Request
                     $.ajax({
                         url: 'update/' + id,
                         method: 'POST',
@@ -42,7 +52,6 @@
                             xhr.setRequestHeader('X-CSRFToken', csrf_token)
                         }
                     })
-
                 });
             });
         }

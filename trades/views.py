@@ -3,6 +3,7 @@ from .forms import EntryForm
 from .models import Trades
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic.edit import UpdateView
+import datetime
 
 def index(request):
     form = EntryForm()
@@ -38,7 +39,7 @@ def trades(request):
                 exit_comments=exit_comments
             ).save()
 
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('')
 
     return render(request, 'trades/form.html', {'form': form})
 
@@ -49,6 +50,17 @@ def delete_trade(request, pk):
 
     return HttpResponse(status=200)
 
-class TradeUpdate(UpdateView):
-    model = Trades
-    fields = ['ticker', 'entry_date', 'exit_date', 'entry_price', 'exit_price', 'pnl', 'entry_comments', 'exit_comments']
+def update_trade(request, pk):
+    if request.is_ajax():
+        id = request.POST.get('id', '')
+        trade = Trades.objects.filter(pk=id).update(
+            ticker=request.POST.get('ticker'),
+            entry_date=datetime.datetime.strptime(request.POST.get('entry_date'), '%m/%d/%y').date(),
+            exit_date=datetime.datetime.strptime(request.POST.get('exit_date'), '%m/%d/%y').date(),
+            entry_price=request.POST.get('entry_price'),
+            exit_price=request.POST.get('exit_price'),
+            pnl=request.POST.get('pnl'),
+            entry_comments=request.POST.get('entry_comments'),
+            exit_comments=request.POST.get('exit_comments')
+        )
+    return HttpResponse(status=200)

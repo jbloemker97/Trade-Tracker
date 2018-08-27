@@ -30,8 +30,8 @@
             {% for trade in trades %}
             <tr>
                 <th scope="row">{{ trade.ticker|upper }}</th>
-                <td>{{ trade.entry_date|date:"Y M d" }}</td>
-                <td>{{ trade.exit_date|date:"Y M d" }}</td>
+                <td>{{ trade.entry_date|date:"m/d/y" }}</td>
+                <td>{{ trade.exit_date|date:"m/d/y" }}</td>
                 <td>${{ trade.entry_price }}</td>
                 <td>${{ trade.exit_price }}</td>
                 <td>${{ trade.pnl }}</td>
