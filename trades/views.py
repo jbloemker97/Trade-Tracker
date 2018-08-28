@@ -21,6 +21,7 @@ def trades(request):
 
         if form.is_valid():
             ticker = form.cleaned_data['ticker']
+            position = form.cleaned_data['position']
             entry_date = form.cleaned_data['entry_date']
             exit_date = form.cleaned_data['exit_date']
             entry_price = form.cleaned_data['entry_price']
@@ -31,6 +32,7 @@ def trades(request):
 
             Trades.objects.create(
                 ticker=ticker,
+                position=position,
                 entry_date=entry_date,
                 exit_date=exit_date,
                 entry_price=entry_price,

@@ -6,7 +6,7 @@ class EntryForm(forms.Form):
         ('Short', 'Short')
     )
     ticker = forms.CharField(max_length=5)
-    position = forms.ChoiceField(choices=CHOICES, widget=forms.Select(), required=True)
+    position = forms.CharField(widget=forms.Select(choices=CHOICES), required=True)
     entry_date = forms.DateTimeField()
     exit_date = forms.DateTimeField(required=False)
     entry_price = forms.DecimalField(max_digits=6, decimal_places=2)
