@@ -34,9 +34,9 @@
                 <th class="font-weight-normal">{{ trade.position }}</th>
                 <td>{{ trade.entry_date|date:"m/d/y" }}</td>
                 <td>{{ trade.exit_date|date:"m/d/y" }}</td>
-                <td>${{ trade.entry_price }}</td>
-                <td>${{ trade.exit_price|default_if_none:"" }}</td>
-                <td>${{ trade.pnl|default_if_none:"" }}</td>
+                <td class="entryPrice">${{ trade.entry_price }}</td>
+                <td class="exitPrice">${{ trade.exit_price|default_if_none:"" }}</td>
+                <td class="pnl">${{ trade.pnl|default_if_none:"" }}</td>
                 <td>{{ trade.entry_comments|truncatechars:15 }}</td>
                 <td>{{ trade.exit_comments|truncatechars:15|default_if_none:"" }}</td>
                 <td><button type="button" class="btn btn-info btn-sm updateButton" data-id="{{ trade.id }}" data-toggle="modal" data-target="#updateModal">Update</button></td>

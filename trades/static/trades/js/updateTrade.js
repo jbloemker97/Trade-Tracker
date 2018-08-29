@@ -24,11 +24,23 @@
                     e.preventDefault();
 
                     let row = document.querySelector(`[data-id="${id}"]`).parentElement.parentElement;
-                    let dataKeys = ["ticker", "entry_date", "exit_date", "entry_price", "exit_price", "pnl", "entry_comments", "exit_comments"]
+                    let dataKeys = ["ticker", "position", "entry_date", "exit_date", "entry_price", "exit_price", "pnl", "entry_comments", "exit_comments"]
                     
                     for (let i = 0; i < row.children.length - 2; i++) {
                         value = input[i].value;
-                        row.children[i].innerHTML = value;
+
+                        if (row.children[i].className === "exitPrice" || row.children[i].className === "pnl") {
+                
+                            if (row.children[i].textContent[0] === "$") {
+                                row.children[i].innerHTML = value;
+                            }else {
+                                row.children[i].innerHTML = "$" + value;
+                            }
+                            
+                        }else {
+                            row.children[i].innerHTML = value;
+                        }
+
                         data[dataKeys[i]] = value;
                     }
 
