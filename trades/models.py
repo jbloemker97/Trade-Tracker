@@ -8,6 +8,7 @@ class Trades(models.Model):
     )
     ticker = models.CharField(max_length=5)
     position = models.CharField(max_length=100, choices=CHOICES, default='Long')
+    shares = models.PositiveIntegerField(default=0)
     entry_date = models.DateTimeField(timezone.now())
     exit_date = models.DateTimeField(timezone.now(), blank=True, null=True)
     entry_price = models.DecimalField(max_digits=6, decimal_places=2)

@@ -16,6 +16,7 @@
           <tr>
             <th scope="col">Ticker</th>
             <th scope="col">Position</th>
+            <th scope="col">Shares</th>
             <th scope="col">Entry Date</th>
             <th scope="col">Exit Date</th>
             <th scope="col">Entry Price</th>
@@ -32,6 +33,7 @@
             <tr class="trade-row">
                 <th scope="row" class="font-weight-normal">{{ trade.ticker|upper }}</th>
                 <th class="font-weight-normal">{{ trade.position }}</th>
+                <th class="font-weight-normal">{{ trade.shares }}</th>
                 <td>{{ trade.entry_date|date:"m/d/y" }}</td>
                 <td>{{ trade.exit_date|date:"m/d/y" }}</td>
                 <td class="entryPrice">${{ trade.entry_price }}</td>
@@ -44,6 +46,7 @@
             </tr>
             {% endfor %}
         </tbody>
+        <a href="/trades/csv_write" class="btn btn-link float-right" id="downloadCSV">Download CSV</a>
       </table>
 
 <!-- MODAL CONFIRMTAION -->

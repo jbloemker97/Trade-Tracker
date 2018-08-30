@@ -8,4 +8,5 @@ urlpatterns = [
     path('add/', views.trades, name='add'),
     path('delete/<int:pk>', views.delete_trade, name='delete'),
     path('update/<int:pk>', views.update_trade, name='update'),
+    path('csv_write/', views.csv_write, name='csv'),
 ]

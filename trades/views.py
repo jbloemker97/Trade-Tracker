@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic.edit import UpdateView
 import datetime
 from django.urls import reverse
+import csv
 
 def index(request):
     form = EntryForm()
@@ -22,6 +23,7 @@ def trades(request):
         if form.is_valid():
             ticker = form.cleaned_data['ticker']
             position = form.cleaned_data['position']
+            shares = form.cleaned_data['shares']
             entry_date = form.cleaned_data['entry_date']
             exit_date = form.cleaned_data['exit_date']
             entry_price = form.cleaned_data['entry_price']
@@ -33,6 +35,7 @@ def trades(request):
             Trades.objects.create(
                 ticker=ticker,
                 position=position,
+                shares=shares,
                 entry_date=entry_date,
                 exit_date=exit_date,
                 entry_price=entry_price,
@@ -58,6 +61,8 @@ def update_trade(request, pk):
         id = request.POST.get('id', '')
         trade = Trades.objects.filter(pk=id).update(
             ticker=request.POST.get('ticker'),
+            position=request.POST.get('position'),
+            shares=request.POST.get('shares'),
             entry_date=datetime.datetime.strptime(request.POST.get('entry_date'), '%m/%d/%y').date(),
             exit_date=datetime.datetime.strptime(request.POST.get('exit_date'), '%m/%d/%y').date(),
             entry_price=request.POST.get('entry_price'),
@@ -67,3 +72,17 @@ def update_trade(request, pk):
             exit_comments=request.POST.get('exit_comments')
         )
     return HttpResponse(status=200)
+
+def csv_write(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment;filename=trades.csv'
+    writer = csv.writer(response)
+    trades = Trades.objects.all()
+
+    writer.writerow(['Ticker', 'Position', 'Shares', 'Entry Date', 'Exit Date', 'Entry Price', 'Exit Price', 'PnL', 'Entry Comments', 'Exit Comments'])
+
+    for trade in trades:
+        writer.writerow([trade.ticker, trade.position, trade.shares, trade.entry_date, trade.exit_date, trade.entry_price, trade.exit_price, trade.pnl, trade.entry_comments, trade.exit_comments])
+
+    
+    return response
