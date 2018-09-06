@@ -14,7 +14,5 @@ def register(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             return HttpResponseRedirect('/trades')
-    else:
-        form = UserCreationForm()
-        context = {'form':form}
-        return render(request, 'user/registration.html', context)
+        
+    return render(request, 'registration/registration.html', { 'form':UserCreationForm() })

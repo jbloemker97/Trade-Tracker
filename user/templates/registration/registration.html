@@ -1,9 +1,12 @@
-{% extends 'user/base.html' %}
+{% extends 'registration/base.html' %}
 
 {% block content %}
 <form method="POST" action="{% url 'user:register' %}">{% csrf_token %}
     <div class="container w-50">
         <h1>Sign up below</h1>
+        {% for error in form.errors %}
+        <p class="text-danger">{{ error }}</p>
+        {% endfor %}
         <div class="form-group">
             <label for="id_username">Username:</label>
             <input type="text" class="form-control" id="id_username" name="username" maxlength="150" required>
