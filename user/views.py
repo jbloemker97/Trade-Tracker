@@ -16,3 +16,6 @@ def register(request):
             return HttpResponseRedirect('/trades')
         
     return render(request, 'registration/registration.html', { 'form':UserCreationForm() })
+
+def account(request):
+    return render(request, 'registration/my_account.html')
