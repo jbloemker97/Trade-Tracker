@@ -1,11 +1,13 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 class Trades(models.Model):
     CHOICES = (
         ('Long', 'Long'),
         ('Short', 'Short')
     )
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     ticker = models.CharField(max_length=5)
     position = models.CharField(max_length=100, choices=CHOICES, default='Long')
     shares = models.PositiveIntegerField(default=0)

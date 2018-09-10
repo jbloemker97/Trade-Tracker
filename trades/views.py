@@ -6,10 +6,13 @@ from django.views.generic.edit import UpdateView
 import datetime
 from django.urls import reverse
 import csv
+from django.contrib.auth.models import User
 
 def index(request):
     form = EntryForm()
     trades = Trades.objects.all()
+    print(request.user.id)
+    # trades = User.objects.get(username=request.user)
     return render(request, 'trades/index.html', {'trades': trades, 'form': form})
 
 
@@ -18,6 +21,7 @@ def trades(request):
         form = EntryForm()
 
     elif request.method == 'POST':
+        print(request.user)
         form = EntryForm(request.POST)
 
         if form.is_valid():
