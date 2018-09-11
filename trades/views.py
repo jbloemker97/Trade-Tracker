@@ -83,7 +83,7 @@ def csv_write(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment;filename=trades.csv'
     writer = csv.writer(response)
-    trades = Trades.objects.all()
+    trades = Trades.objects.filter(user_id=request.user.id)
 
     writer.writerow(['Ticker', 'Position', 'Shares', 'Entry Date', 'Exit Date', 'Entry Price', 'Exit Price', 'PnL', 'Entry Comments', 'Exit Comments'])
 
