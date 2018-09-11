@@ -7,7 +7,8 @@ class Trades(models.Model):
         ('Long', 'Long'),
         ('Short', 'Short')
     )
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    # user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey('trades.Trades', on_delete=models.CASCADE, null=True)
     ticker = models.CharField(max_length=5)
     position = models.CharField(max_length=100, choices=CHOICES, default='Long')
     shares = models.PositiveIntegerField(default=0)

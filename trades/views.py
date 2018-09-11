@@ -10,10 +10,12 @@ from django.contrib.auth.models import User
 
 def index(request):
     form = EntryForm()
-    trades = Trades.objects.all()
-    print(request.user.id)
-    # trades = User.objects.get(username=request.user)
-    return render(request, 'trades/index.html', {'trades': trades, 'form': form})
+    
+    if request.user.is_authenticated:
+        trades = Trades.objects.filter(user_id=request.user.id)
+        return render(request, 'trades/index.html', {'trades': trades, 'form': form})
+    else:
+        return render(request, 'trades/index.html', {'form': form}) # Return a login/register page
 
 
 def trades(request):
@@ -21,7 +23,6 @@ def trades(request):
         form = EntryForm()
 
     elif request.method == 'POST':
-        print(request.user)
         form = EntryForm(request.POST)
 
         if form.is_valid():
@@ -37,6 +38,7 @@ def trades(request):
             exit_comments = form.cleaned_data['exit_comments']
 
             Trades.objects.create(
+                user_id=request.user.id,
                 ticker=ticker,
                 position=position,
                 shares=shares,
