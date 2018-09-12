@@ -1,7 +1,7 @@
 {% extends 'trades/base.html' %}
 
 {% block content %}
-    <div class="container form-container">
+    <div class="container form-container cont">
         <div class="jumbotron">
             <div class="row mt-3">
                 <div class="col-lg-6">
@@ -14,7 +14,7 @@
         </div>
 
         <!-- Form -->
-        <form method="POST" action="{% url 'trades:add' %}" class="form-group">
+        <form method="POST" action="{% url 'trades:add' %}" class="form-group form">
             {% csrf_token %}
             <label>{{ form.ticker.label }}</label>
             <input placeholder="{{ form.ticker.label }}" name="{{ form.ticker.name }}" class="form-control" type="text">
@@ -29,10 +29,10 @@
             <input placeholder="{{ form.shares.label }}" name="{{ form.shares.name }}" class="form-control" type="number">
 
             <label>{{ form.entry_date.label }}</label>
-            <input placeholder="{{ form.entry_date.label }}" name="{{ form.entry_date.name }}" class="form-control" type="text">
+            <input placeholder="{{ form.entry_date.label }} | xx/xx/xx" name="{{ form.entry_date.name }}" class="form-control" type="text">
 
             <label>{{ form.exit_date.label }}</label>
-            <input placeholder="{{ form.exit_date.label }}" name="{{ form.exit_date.name }}" class="form-control" type="text">
+            <input placeholder="{{ form.exit_date.label }} | xx/xx/xx" name="{{ form.exit_date.name }}" class="form-control" type="text">
 
             <label>{{ form.entry_price.label }}</label>
             <input placeholder="{{ form.entry_price.label }}" name="{{ form.entry_price.name }}" class="form-control" type="number" step="0.01">
@@ -48,11 +48,6 @@
 
             <label>{{ form.exit_comments.label }}</label>
             <input placeholder="{{ form.exit_comments.label }}" name="{{ form.exit_comments.name }}" class="form-control" type="textarea">
-            <!-- {% for field in form %}
-                {{ field.errors }}
-                <label>{{field.label}}</label>
-                <input placeholder="{{ field.label }}" name="{{ field.name }}" class="form-control" type="{{ field.field.widget.input_type }}"/>
-            {% endfor %} -->
             <br>
             <button type="submit" class="btn btn-success">Submit</button>
         </form>
