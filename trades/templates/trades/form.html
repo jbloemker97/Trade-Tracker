@@ -29,10 +29,10 @@
             <input placeholder="{{ form.shares.label }}" name="{{ form.shares.name }}" class="form-control" type="number">
 
             <label>{{ form.entry_date.label }}</label>
-            <input placeholder="{{ form.entry_date.label }} | xx/xx/xx" name="{{ form.entry_date.name }}" class="form-control" type="text">
+            <input placeholder="{{ form.entry_date.label }} | xx/xx/xx" name="{{ form.entry_date.name }}" class="form-control" type="text" id="entry-date" autocomplete="off">
 
             <label>{{ form.exit_date.label }}</label>
-            <input placeholder="{{ form.exit_date.label }} | xx/xx/xx" name="{{ form.exit_date.name }}" class="form-control" type="text">
+            <input placeholder="{{ form.exit_date.label }} | xx/xx/xx" name="{{ form.exit_date.name }}" class="form-control" type="text" id="exit-date" autocomplete="off">
 
             <label>{{ form.entry_price.label }}</label>
             <input placeholder="{{ form.entry_price.label }}" name="{{ form.entry_price.name }}" class="form-control" type="number" step="0.01">

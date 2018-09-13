@@ -29,9 +29,13 @@
     <script>
         var csrf_token = '{{ csrf_token }}'
     </script>
-    <script src="pikaday.js"></script>
+    <script src="{% static 'moment/moment.js' %}"></script>
+    <script src="{% static 'pikaday/pikaday.js' %}"></script>
     <script>
-        var picker = new Pikaday({ field: document.getElementById('datepicker') });
+        var entryDate = new Pikaday({ 
+            field: document.getElementById('entry-date'),
+            format: 'MM/DD/YY',
+        });
     </script>
 </body>
 </html>
