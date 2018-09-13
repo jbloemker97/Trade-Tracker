@@ -10,6 +10,7 @@
     <!-- <link rel="stylesheet" href="{% static 'trades/css/bootstrap.css' %}"> -->
     <link rel="stylesheet" href="{% static 'trades/css/style.css' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
 </head>
 <body>
     {% include 'trades/navbar.html' %}
@@ -34,6 +35,11 @@
     <script>
         var entryDate = new Pikaday({ 
             field: document.getElementById('entry-date'),
+            format: 'MM/DD/YY',
+        });
+
+        var exitDate = new Pikaday({ 
+            field: document.getElementById('exit-date'),
             format: 'MM/DD/YY',
         });
     </script>
