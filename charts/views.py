@@ -7,3 +7,6 @@ from django.http import JsonResponse
 def get_data(request):
     trades = Trades.objects.filter(user_id=request.user.id)
     return JsonResponse(list(trades.values()), safe=False)
+
+def index(request):
+    return render(request, 'charts/charts.html')
