@@ -12,12 +12,9 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def index(request):
     form = EntryForm()
-    
-    if request.user.is_authenticated:
-        trades = Trades.objects.filter(user_id=request.user.id)
-        return render(request, 'trades/index.html', {'trades': trades, 'form': form})
-    else:
-        return render(request, 'trades/index.html', {'form': form}) # Return a login/register page
+    trades = Trades.objects.filter(user_id=request.user.id)
+    return render(request, 'trades/index.html', {'trades': trades, 'form': form})
+   
 
 
 def trades(request):
