@@ -1,11 +1,25 @@
+function getData (callback) {
+    $.ajax({
+        url: "/charts/data",
+        method: "GET",
+        success: function (res) {
+            callback(res);
+        }
+    });
+}
+
 var ctx = document.getElementById("chart1").getContext('2d');
 var myChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'line',
     data: {
         labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: '',
+            //data: [12, 19, 3, 5, 2, 3],
+            data: getData((res) => {
+                console.log(res);
+                return res;
+            }),
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
