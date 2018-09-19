@@ -9,4 +9,8 @@ def get_data(request):
     return JsonResponse(list(trades.values()), safe=False)
 
 def index(request):
-    return render(request, 'charts/charts.html')
+    trades = Trades.objects.filter(user_id=request.user.id).order_by('id')[:4]
+    context = {
+        'trades': trades
+    }
+    return render(request, 'charts/charts.html', context)

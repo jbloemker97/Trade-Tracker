@@ -5,10 +5,10 @@
 <div class="bg-secondary">
     <div class="container">
         <!-- Main Chart (PnL) Row -->
-        <div class="row">
+        <div class="row mb-5">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-body shadow p-3 mb-5 bg-white rounded">
+                    <div class="card-body shadow p-3 mb-5 bg-white">
                         <div class="row">
                             <div class="col-lg-12">
                                 <h4 class="text-center">Trades Data</h4>
@@ -25,10 +25,11 @@
         </div>
         
         <!-- Recent Trades Row -->
-        <div class="row">
+        <div class="row mb-5">
+            <!-- Left Column -->
             <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-body shadow bg-white rounded">
+                <div class="card h-100">
+                    <div class="card-body shadow bg-white">
                         <div class="col-lg-12">
                             <h6 class="align-left">Recent Trades</h6>
                         </div>
@@ -36,33 +37,37 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
+                                    <th scope="col">Ticker</th>
+                                    <th scope="col">Position</th>
+                                    <th scope="col">Shares</th>
+                                    <th scope="col">PnL</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for trade in trades %}
                                     <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
+                                    <td>{{ trade.ticker|upper }}</td>
+                                    <td>{{ trade.position }}</td>
+                                    <td>{{ trade.shares }}</td>
+                                    <td>{{ trade.pnl }}</td>
                                     </tr>
-                                    <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                    </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-body shadow bg-white">
+                        <div class="col-lg-12">
+                            <h6 class="align-left">Future Growth</h6>
+                        </div>
+                        <div class="col-lg-12">
+                            <canvas id="compoundedGrowth"></canvas>
                         </div>
                     </div>
                 </div>
