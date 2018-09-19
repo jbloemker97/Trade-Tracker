@@ -4,20 +4,66 @@
 {% block content %}
 <div class="bg-secondary">
     <div class="container">
-        <!-- Main Chart Row -->
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h4>Trades Data</h4>
+        <!-- Main Chart (PnL) Row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body shadow p-3 mb-5 bg-white rounded">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h4 class="text-center">Trades Data</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <canvas id="chart1"></canvas>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-8">
-                        <canvas id="chart1" width="400" height="400"></canvas>
-                    </div>
-                    <div class="col-lg-4">
-
+            </div>
+        </div>
+        
+        <!-- Recent Trades Row -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body shadow bg-white rounded">
+                        <div class="col-lg-12">
+                            <h6 class="align-left">Recent Trades</h6>
+                        </div>
+                        <div class="col-lg-12">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">First</th>
+                                    <th scope="col">Last</th>
+                                    <th scope="col">Handle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    <th scope="row">1</th>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">2</th>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td>@fat</td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">3</th>
+                                    <td>Larry</td>
+                                    <td>the Bird</td>
+                                    <td>@twitter</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
