@@ -5,16 +5,28 @@ $.ajax({
     success: function (res) {
         let finalizedData = [];
         let labels = [];
+        let pricesPerDate = {};
         res.forEach(el => {
-            finalizedData.push(parseInt(el.pnl));
-            labels.push(moment(el.exit_date).format('MMM Do YY'));
+            if (el.exit_date in pricesPerDate) {
+                pricesPerDate[el.exit_date] += parseInt(el.pnl);
+            }else {
+                pricesPerDate[el.exit_date] = parseInt(el.pnl);
+            }
         });
+
+        for (let date in pricesPerDate) {    
+            labels.push(moment(date).format('MMM Do YY'));
+            finalizedData.push(pricesPerDate[date])
+        }
+        
+        console.log(finalizedData);
+        console.log(labels.sort(date_sort_asc));
     
         var ctx = document.getElementById("chart1").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: labels,
+                labels: labels.sort((a, b) => a - b),
                 datasets: [{
                     label: 'PNL',
                     data: finalizedData,
@@ -53,7 +65,7 @@ $.ajax({
                 labels: ["Red", "Blue", "Yellow"],
                 datasets: [{
                     label: 'PNL',
-                    data: finalizedData,
+                    data: finalizedData.sort((a, b) => a - b),
                 }]
             },
             options: {
@@ -71,4 +83,11 @@ $.ajax({
         console.log(err)
     }
 });
+
+
+let date_sort_asc = function (date1, date2) {
+    if (date1 > date2) return 1;
+    if (date1 < date2) return -1;
+    return 0;
+  };
 
