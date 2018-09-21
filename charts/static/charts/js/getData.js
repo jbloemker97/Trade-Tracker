@@ -18,10 +18,6 @@ $.ajax({
             labels.push(moment(date).format('MMM Do YY'));
             finalizedData.push(pricesPerDate[date])
         }
-
-        console.log(finalizedData);
-        console.log(labels);
-        console.log(pricesPerDate);
     
         var ctx = document.getElementById("chart1").getContext('2d');
         var myChart = new Chart(ctx, {
