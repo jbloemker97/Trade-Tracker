@@ -18,15 +18,16 @@ $.ajax({
             labels.push(moment(date).format('MMM Do YY'));
             finalizedData.push(pricesPerDate[date])
         }
-        
+
         console.log(finalizedData);
-        console.log(labels.sort(date_sort_asc));
+        console.log(labels);
+        console.log(pricesPerDate);
     
         var ctx = document.getElementById("chart1").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: labels.sort((a, b) => a - b),
+                labels: labels,
                 datasets: [{
                     label: 'PNL',
                     data: finalizedData,

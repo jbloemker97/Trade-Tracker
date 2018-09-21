@@ -5,7 +5,7 @@ from django.http import JsonResponse
 
 @login_required
 def get_data(request):
-    trades = Trades.objects.filter(user_id=request.user.id)
+    trades = Trades.objects.filter(user_id=request.user.id).order_by('exit_date')
     return JsonResponse(list(trades.values()), safe=False)
 
 def index(request):
