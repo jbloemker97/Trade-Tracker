@@ -19,6 +19,7 @@ class Trades(models.Model):
     pnl = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     entry_comments = models.CharField(max_length=500)
     exit_comments = models.CharField(max_length=500, blank=True, null=True)
+    success = models.CharField(max_length=10)
 
     def __str__(self):
         return self.ticker

@@ -13,3 +13,11 @@ html, body {
     margin: 0 auto;
     max-width: 800px;
 }
+
+.success {
+    color: green;
+}
+
+.fail {
+    color: red;
+}

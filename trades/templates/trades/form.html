@@ -16,6 +16,75 @@
         <!-- Form -->
         <form method="POST" action="{% url 'trades:add' %}" class="form-group form">
             {% csrf_token %}
+            <!-- Row -->
+            <div class="row">
+                <div class="col-lg-4">
+                    <label>{{ form.ticker.label }}</label>
+                    <input placeholder="{{ form.ticker.label }}" name="{{ form.ticker.name }}" class="form-control" type="text">
+                </div>
+                <div class="col-lg-4">
+                    <label>{{ form.position.label }}</label>
+                    <select name="{{ form.position.name }}" class="form-control">
+                        <option>Long</option>
+                        <option>Short</option>
+                    </select>
+                </div>
+                <div class="col-lg-4">
+                    <label>{{ form.shares.label }}</label>
+                    <input placeholder="{{ form.shares.label }}" name="{{ form.shares.name }}" class="form-control" type="number">
+                </div>
+            </div>
+            
+
+            <!-- Row -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <label>{{ form.entry_date.label }}</label>
+                    <input placeholder="{{ form.entry_date.label }} | xx/xx/xx" name="{{ form.entry_date.name }}" class="form-control" type="text" id="entry-date" autocomplete="off">
+                </div>
+                <div class="col-lg-6">
+                    <label>{{ form.exit_date.label }}</label>
+                    <input placeholder="{{ form.exit_date.label }} | xx/xx/xx" name="{{ form.exit_date.name }}" class="form-control" type="text" id="exit-date" autocomplete="off">
+                </div>
+            </div>
+            
+            <!-- Row -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <label>{{ form.entry_price.label }}</label>
+                    <input placeholder="{{ form.entry_price.label }}" name="{{ form.entry_price.name }}" class="form-control" type="number" step="0.01">
+                </div>
+                <div class="col-lg-6">
+                    <label>{{ form.exit_price.label }}</label>
+                    <input placeholder="{{ form.exit_price.label }}" name="{{ form.exit_price.name }}" class="form-control" type="number" step="0.01">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <label>{{ form.entry_comments.label }}</label>
+                    <textarea placeholder="{{ form.entry_comments.label }}" name="{{ form.entry_comments.name }}" class="form-control" type="textarea"></textarea>
+                </div>
+                <div class="col-lg-6">
+                    <label>{{ form.exit_comments.label }}</label>
+                    <textarea placeholder="{{ form.exit_comments.label }}" name="{{ form.exit_comments.name }}" class="form-control" type="textarea"></textarea>
+                </div>
+            </div>
+
+            
+
+          
+            
+
+            <!-- <label>{{ form.pnl.label }}</label>
+            <input placeholder="{{ form.pnl.label }}" name="{{ form.pnl.name }}" class="form-control" type="number" step="0.01"> -->
+            <hr>
+            <br>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+
+        <!-- <form method="POST" action="{% url 'trades:add' %}" class="form-group form">
+            {% csrf_token %}
             <label>{{ form.ticker.label }}</label>
             <input placeholder="{{ form.ticker.label }}" name="{{ form.ticker.name }}" class="form-control" type="text">
 
@@ -50,6 +119,6 @@
             <input placeholder="{{ form.exit_comments.label }}" name="{{ form.exit_comments.name }}" class="form-control" type="textarea">
             <br>
             <button type="submit" class="btn btn-success">Submit</button>
-        </form>
+        </form> -->
     </div>
 {% endblock %}

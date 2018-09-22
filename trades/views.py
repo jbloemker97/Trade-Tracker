@@ -23,6 +23,8 @@ def trades(request):
 
     elif request.method == 'POST':
         form = EntryForm(request.POST)
+        pnl = 0
+        success = False
 
         if form.is_valid():
             ticker = form.cleaned_data['ticker']
@@ -32,10 +34,23 @@ def trades(request):
             exit_date = form.cleaned_data['exit_date']
             entry_price = form.cleaned_data['entry_price']
             exit_price = form.cleaned_data['exit_price']
-            pnl = form.cleaned_data['pnl']
             entry_comments = form.cleaned_data['entry_comments']
             exit_comments = form.cleaned_data['exit_comments']
 
+            # Calculate PnL
+            if position == 'Long':
+                pnl = (float(exit_price) - float(entry_price)) * int(shares)
+                if exit_price >= entry_price:
+                    sucess = True
+                
+                
+            elif position == 'Short':
+                pnl = (float(entry_price) - float(exit_price)) * int(shares)
+                if entry_price >= exit_price:
+                    success = True
+
+            success = 'success' if success else 'fail'
+                
             Trades.objects.create(
                 user_id=request.user.id,
                 ticker=ticker,
@@ -47,7 +62,8 @@ def trades(request):
                 exit_price=exit_price,
                 pnl=pnl,
                 entry_comments=entry_comments,
-                exit_comments=exit_comments
+                exit_comments=exit_comments,
+                success=success
             ).save()
 
             return HttpResponseRedirect(reverse("trades:index"))
