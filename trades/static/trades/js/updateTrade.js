@@ -15,19 +15,18 @@
                 let row = e.target.parentElement.parentElement;
                 let data = new Object();
 
-                for (let j = 0; j < row.children.length - 2; j++) {
+                for (let j = 0; j < row.children.length - 3; j++) {
                     values = row.children[j].innerHTML;
                     input[j].value = values;
-                    console.log(input[j], values);
                 }
                 
                 form.addEventListener("submit", function (e) {
                     e.preventDefault();
 
                     let row = document.querySelector(`[data-id="${id}"]`).parentElement.parentElement;
-                    let dataKeys = ["ticker", "position", "shares", "entry_date", "exit_date", "entry_price", "exit_price", "pnl", "entry_comments", "exit_comments"]
+                    let dataKeys = ["ticker", "position", "shares", "entry_date", "exit_date", "entry_price", "exit_price", "entry_comments", "exit_comments"]
                     
-                    for (let i = 0; i < row.children.length - 2; i++) {
+                    for (let i = 0; i < row.children.length - 3; i++) {
                         value = input[i].value;
 
                         if (row.children[i].className === "exitPrice" || row.children[i].className === "pnl") {

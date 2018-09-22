@@ -7,38 +7,56 @@
                 </button>
             <form method="POST" action="{% url 'trades:add' %}" class="form-group" id="updateForm">
                 {% csrf_token %}
-                <label>{{ form.ticker.label }}</label>
-                <input placeholder="{{ form.ticker.label }}" name="{{ form.ticker.name }}" class="form-control addInput" type="text">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label>{{ form.ticker.label }}</label>
+                        <input placeholder="{{ form.ticker.label }}" name="{{ form.ticker.name }}" class="form-control addInput" type="text">
+                    </div>
+                    <div class="col-lg-4">
+                        <label>{{ form.position.label }}</label>
+                        <select name="{{ form.position.name }}" class="form-control addInput">
+                            <option>Long</option>
+                            <option>Short</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4">
+                        <label>{{ form.shares.label }}</label>
+                        <input placeholder="{{ form.shares.label }}" name="{{ form.shares.name }}" class="form-control addInput" type="number">
+                    </div>
+                </div>
 
-                <label>{{ form.position.label }}</label>
-                <select name="{{ form.position.name }}" class="form-control addInput">
-                    <option>Long</option>
-                    <option>Short</option>
-                </select>
-
-                <label>{{ form.shares.label }}</label>
-                <input placeholder="{{ form.shares.label }}" name="{{ form.shares.name }}" class="form-control addInput" type="number">
-
-                <label>{{ form.entry_date.label }}</label>
-                <input placeholder="{{ form.entry_date.label }}" name="{{ form.entry_date.name }}" class="form-control addInput" type="text">
-
-                <label>{{ form.exit_date.label }}</label>
-                <input placeholder="{{ form.exit_date.label }}" name="{{ form.exit_date.name }}" class="form-control addInput" type="text">
-
-                <label>{{ form.entry_price.label }}</label>
-                <input placeholder="{{ form.entry_price.label }}" name="{{ form.entry_price.name }}" class="form-control addInput" type="text">
-
-                <label>{{ form.exit_price.label }}</label>
-                <input placeholder="{{ form.exit_price.label }}" name="{{ form.exit_price.name }}" class="form-control addInput" type="text">
-
-                <label>{{ form.pnl.label }}</label>
-                <input placeholder="{{ form.pnl.label }}" name="{{ form.pnl.name }}" class="form-control addInput" type="text">
-
-                <label>{{ form.entry_comments.label }}</label>
-                <input placeholder="{{ form.entry_comments.label }}" name="{{ form.entry_comments.name }}" class="form-control addInput" type="textarea">
-
-                <label>{{ form.exit_comments.label }}</label>
-                <input placeholder="{{ form.exit_comments.label }}" name="{{ form.exit_comments.name }}" class="form-control addInput" type="textarea">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>{{ form.entry_date.label }}</label>
+                        <input placeholder="{{ form.entry_date.label }}" name="{{ form.entry_date.name }}" class="form-control addInput" id="entry-date" type="text">
+                    </div>
+                    <div class="col-lg-6">
+                        <label>{{ form.exit_date.label }}</label>
+                        <input placeholder="{{ form.exit_date.label }}" name="{{ form.exit_date.name }}" class="form-control addInput" id="exit-date" type="text">
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>{{ form.entry_price.label }}</label>
+                        <input placeholder="{{ form.entry_price.label }}" name="{{ form.entry_price.name }}" class="form-control addInput" type="text">
+                    </div>
+                    <div class="col-lg-6">
+                        <label>{{ form.exit_price.label }}</label>
+                        <input placeholder="{{ form.exit_price.label }}" name="{{ form.exit_price.name }}" class="form-control addInput" type="text">
+                    </div>
+                </div>
+               
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>{{ form.entry_comments.label }}</label>
+                        <textarea placeholder="{{ form.entry_comments.label }}" name="{{ form.entry_comments.name }}" class="form-control addInput" type="textarea"></textarea>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>{{ form.exit_comments.label }}</label>
+                        <textarea placeholder="{{ form.exit_comments.label }}" name="{{ form.exit_comments.name }}" class="form-control addInput" type="textarea"></textarea>
+                    </div>
+                </div>
                 <br>
                 <button type="submit" class="btn btn-success" >Update</button>
             </form>
