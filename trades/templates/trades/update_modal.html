@@ -28,11 +28,11 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <label>{{ form.entry_date.label }}</label>
-                        <input placeholder="{{ form.entry_date.label }}" name="{{ form.entry_date.name }}" class="form-control addInput" id="entry-date" type="text">
+                        <input placeholder="{{ form.entry_date.label }}" name="{{ form.entry_date.name }}" class="form-control addInput" id="entry-date" type="text" autocomplete="off">
                     </div>
                     <div class="col-lg-6">
                         <label>{{ form.exit_date.label }}</label>
-                        <input placeholder="{{ form.exit_date.label }}" name="{{ form.exit_date.name }}" class="form-control addInput" id="exit-date" type="text">
+                        <input placeholder="{{ form.exit_date.label }}" name="{{ form.exit_date.name }}" class="form-control addInput" id="exit-date" type="text" autocomplete="off">
                     </div>
                 </div>
                 
@@ -46,6 +46,8 @@
                         <input placeholder="{{ form.exit_price.label }}" name="{{ form.exit_price.name }}" class="form-control addInput" type="text">
                     </div>
                 </div>
+
+                <input name="{{ form.pnl.name }}" class="form-control addInput" type="hidden">
                
                 <div class="row">
                     <div class="col-lg-6">
