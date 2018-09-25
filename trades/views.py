@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .forms import EntryForm
 from .models import Trades
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.views.generic.edit import UpdateView
 import datetime
 from django.urls import reverse
@@ -77,22 +77,43 @@ def delete_trade(request, pk):
 
     return HttpResponse(status=200)
 
-def update_trade(request, pk):
-    if request.is_ajax():
-        id = request.POST.get('id', '')
+def update_trade(request):
+    # if request.is_ajax():
+    #     id = request.POST.get('id', '')
+    #     trade = Trades.objects.filter(pk=id).update(
+    #         ticker=request.POST.get('ticker'),
+    #         position=request.POST.get('position'),
+    #         shares=request.POST.get('shares'),
+    #         entry_date=datetime.datetime.strptime(request.POST.get('entry_date'), '%m/%d/%y').date(),
+    #         exit_date=datetime.datetime.strptime(request.POST.get('exit_date'), '%m/%d/%y').date(),
+    #         entry_price=request.POST.get('entry_price'),
+    #         exit_price=request.POST.get('exit_price'),
+    #         pnl=request.POST.get('pnl'),
+    #         entry_comments=request.POST.get('entry_comments'),
+    #         exit_comments=request.POST.get('exit_comments')
+    #     )
+    if request.method == 'POST':
+        print(request)
+        id = int(request.POST.get('id', ''))
         trade = Trades.objects.filter(pk=id).update(
             ticker=request.POST.get('ticker'),
             position=request.POST.get('position'),
-            shares=request.POST.get('shares'),
+            shares=int(request.POST.get('shares')),
             entry_date=datetime.datetime.strptime(request.POST.get('entry_date'), '%m/%d/%y').date(),
             exit_date=datetime.datetime.strptime(request.POST.get('exit_date'), '%m/%d/%y').date(),
-            entry_price=request.POST.get('entry_price'),
-            exit_price=request.POST.get('exit_price'),
-            pnl=request.POST.get('pnl'),
+            entry_price=int(request.POST.get('entry_price')),
+            exit_price=int(request.POST.get('exit_price')),
+            # pnl=request.POST.get('pnl'),
+            pnl=0,
             entry_comments=request.POST.get('entry_comments'),
             exit_comments=request.POST.get('exit_comments')
         )
-    return HttpResponse(status=200)
+    return HttpResponseRedirect(reverse("trades:index"))
+
+def populate_update_form(request, pk):
+    data = Trades.objects.filter(pk=pk)
+    context = {'update_trades': data}
+    return JsonResponse(list(data.values()), safe=False)
 
 def csv_write(request):
     response = HttpResponse(content_type='text/csv')

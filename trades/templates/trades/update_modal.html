@@ -5,26 +5,25 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeUpdate">
                     <span aria-hidden="true">&times;</span>
                 </button>
-            <form method="POST" action="{% url 'trades:add' %}" class="form-group" id="updateForm">
-                {% csrf_token %}
+            <form method="POST" action="{% url 'trades:update' %}" class="form-group" id="updateForm">{% csrf_token %}
                 <div class="row">
                     <div class="col-lg-4">
                         <label>{{ form.ticker.label }}</label>
-                        <input placeholder="{{ form.ticker.label }}" name="{{ form.ticker.name }}" class="form-control addInput" type="text">
+                        <input placeholder="{{ form.ticker.label }}" name="{{ form.ticker.name }}" class="form-control addInput" type="text" id="updateTicker">
                     </div>
                     <div class="col-lg-4">
                         <label>{{ form.position.label }}</label>
-                        <select name="{{ form.position.name }}" class="form-control addInput">
+                        <select name="{{ form.position.name }}" class="form-control addInput" id="updatePosition">
                             <option>Long</option>
                             <option>Short</option>
                         </select>
                     </div>
                     <div class="col-lg-4">
                         <label>{{ form.shares.label }}</label>
-                        <input placeholder="{{ form.shares.label }}" name="{{ form.shares.name }}" class="form-control addInput" type="number">
+                        <input placeholder="{{ form.shares.label }}" name="{{ form.shares.name }}" class="form-control addInput" type="number" id="updateShares">
                     </div>
                 </div>
-
+                
                 <div class="row">
                     <div class="col-lg-6">
                         <label>{{ form.entry_date.label }}</label>
@@ -39,11 +38,11 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <label>{{ form.entry_price.label }}</label>
-                        <input placeholder="{{ form.entry_price.label }}" name="{{ form.entry_price.name }}" class="form-control addInput" type="text">
+                        <input placeholder="{{ form.entry_price.label }}" name="{{ form.entry_price.name }}" class="form-control addInput" type="text" id="updateEntryPrice">
                     </div>
                     <div class="col-lg-6">
                         <label>{{ form.exit_price.label }}</label>
-                        <input placeholder="{{ form.exit_price.label }}" name="{{ form.exit_price.name }}" class="form-control addInput" type="text">
+                        <input placeholder="{{ form.exit_price.label }}" name="{{ form.exit_price.name }}" class="form-control addInput" type="text" id="updateExitPrice">
                     </div>
                 </div>
 
@@ -52,11 +51,11 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <label>{{ form.entry_comments.label }}</label>
-                        <textarea placeholder="{{ form.entry_comments.label }}" name="{{ form.entry_comments.name }}" class="form-control addInput" type="textarea"></textarea>
+                        <textarea placeholder="{{ form.entry_comments.label }}" name="{{ form.entry_comments.name }}" class="form-control addInput" type="textarea" id="updateEntryComments"></textarea>
                     </div>
                     <div class="col-lg-6">
                         <label>{{ form.exit_comments.label }}</label>
-                        <textarea placeholder="{{ form.exit_comments.label }}" name="{{ form.exit_comments.name }}" class="form-control addInput" type="textarea"></textarea>
+                        <textarea placeholder="{{ form.exit_comments.label }}" name="{{ form.exit_comments.name }}" class="form-control addInput" type="textarea" id="updateExitComments"></textarea>
                     </div>
                 </div>
                 <br>
