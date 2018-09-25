@@ -14,8 +14,6 @@ def index(request):
     form = EntryForm()
     trades = Trades.objects.filter(user_id=request.user.id)
     return render(request, 'trades/index.html', {'trades': trades, 'form': form})
-   
-
 
 def trades(request):
     if request.method == 'GET':
@@ -41,7 +39,7 @@ def trades(request):
             if position == 'Long':
                 pnl = (float(exit_price) - float(entry_price)) * int(shares)
                 if exit_price >= entry_price:
-                    sucess = True
+                    success = True
                 
                 
             elif position == 'Short':
@@ -78,42 +76,51 @@ def delete_trade(request, pk):
     return HttpResponse(status=200)
 
 def update_trade(request):
-    # if request.is_ajax():
-    #     id = request.POST.get('id', '')
-    #     trade = Trades.objects.filter(pk=id).update(
-    #         ticker=request.POST.get('ticker'),
-    #         position=request.POST.get('position'),
-    #         shares=request.POST.get('shares'),
-    #         entry_date=datetime.datetime.strptime(request.POST.get('entry_date'), '%m/%d/%y').date(),
-    #         exit_date=datetime.datetime.strptime(request.POST.get('exit_date'), '%m/%d/%y').date(),
-    #         entry_price=request.POST.get('entry_price'),
-    #         exit_price=request.POST.get('exit_price'),
-    #         pnl=request.POST.get('pnl'),
-    #         entry_comments=request.POST.get('entry_comments'),
-    #         exit_comments=request.POST.get('exit_comments')
-    #     )
     if request.method == 'POST':
-        print(request)
-        id = int(request.POST.get('id', ''))
-        trade = Trades.objects.filter(pk=id).update(
-            ticker=request.POST.get('ticker'),
-            position=request.POST.get('position'),
-            shares=int(request.POST.get('shares')),
-            entry_date=datetime.datetime.strptime(request.POST.get('entry_date'), '%m/%d/%y').date(),
-            exit_date=datetime.datetime.strptime(request.POST.get('exit_date'), '%m/%d/%y').date(),
-            entry_price=int(request.POST.get('entry_price')),
-            exit_price=int(request.POST.get('exit_price')),
-            # pnl=request.POST.get('pnl'),
-            pnl=0,
-            entry_comments=request.POST.get('entry_comments'),
-            exit_comments=request.POST.get('exit_comments')
+        success = False
+        pk = request.POST.get('pk')
+        ticker = request.POST.get('ticker')
+        position = request.POST.get('position')
+        shares = request.POST.get('shares')
+        entry_date = datetime.datetime.strptime(request.POST.get('entry_date'), '%m/%d/%y').date()
+        exit_date = datetime.datetime.strptime(request.POST.get('exit_date'), '%m/%d/%y').date()
+        entry_price = request.POST.get('entry_price')
+        exit_price = request.POST.get('exit_price')
+        pnl = 0
+        entry_comments = request.POST.get('entry_comments')
+        exit_comments = request.POST.get('exit_comments')
+
+        # Calculate PnL
+        if position == 'Long':
+            pnl = (float(exit_price) - float(entry_price)) * int(shares)
+            if exit_price >= entry_price:
+                success = True
+                
+                
+        elif position == 'Short':
+            pnl = (float(entry_price) - float(exit_price)) * int(shares)
+            if entry_price >= exit_price:
+                success = True
+
+        success = 'success' if success else 'fail'
+
+           
+
+        trade = Trades.objects.filter(pk=pk).update(
+            ticker=ticker,
+            position=position,
+            shares=shares,
+            entry_date=entry_date,
+            exit_date=exit_date,
+            entry_price=entry_price,
+            exit_price=exit_price,
+            pnl=pnl,
+            entry_comments=entry_comments,
+            exit_comments=exit_comments,
+            success=success
         )
     return HttpResponseRedirect(reverse("trades:index"))
 
-def populate_update_form(request, pk):
-    data = Trades.objects.filter(pk=pk)
-    context = {'update_trades': data}
-    return JsonResponse(list(data.values()), safe=False)
 
 def csv_write(request):
     response = HttpResponse(content_type='text/csv')

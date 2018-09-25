@@ -6,6 +6,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             <form method="POST" action="{% url 'trades:update' %}" class="form-group" id="updateForm">{% csrf_token %}
+                <input type="hidden" name="pk" id="pk">
                 <div class="row">
                     <div class="col-lg-4">
                         <label>{{ form.ticker.label }}</label>
