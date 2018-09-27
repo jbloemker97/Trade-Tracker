@@ -1,11 +1,38 @@
 {% extends 'registration/base.html' %}
 
 {% block content %}
-<h1>Your account</h1>
 
 <!-- If user is not logged in -->
 {% if user.is_authenticated %}
-<p>Hi, {{ user.username }}</p>
+<div class="body">
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        {% load static %}<img src="{% static 'user/img/default_profile.jpg' %}" class="img-fluid">
+                    </div>
+                </div><br><hr>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2 class="text-center text-muted display-4">Jacob Bloemker</h2>
+                    </div>
+                </div><br><hr>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Account Balance</label>
+                        <p class="text-center display-4 text-muted">$5,000</p>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Account % Change</label>
+                        <i class="fas fa-arrow-up"></i>
+                        <p class="text-center display-4 text-muted">13%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% else %}
 <p>Please Log in</p>
 {% endif %}
