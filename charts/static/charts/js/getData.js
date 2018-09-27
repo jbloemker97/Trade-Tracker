@@ -1,3 +1,16 @@
+// Max PnL
+$.ajax({
+    url: "/charts/data/max_pnl",
+    method: "GET",
+    error: function (res) {
+        console.log(res);
+    }
+})
+.done(function (res) {
+    let biggestPnl = document.getElementById("biggest-pnl");
+    biggestPnl.innerHTML = "$" + Math.round(res.pnl__max * 100) / 100;
+});
+
 // Trades PnL
 $.ajax({
     url: "/charts/data",
@@ -80,6 +93,8 @@ $.ajax({
         console.log(err)
     }
 });
+
+
 
 
 let date_sort_asc = function (date1, date2) {

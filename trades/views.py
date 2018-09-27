@@ -14,6 +14,8 @@ def index(request):
     form = EntryForm()
     trades = Trades.objects.filter(user_id=request.user.id)
     return render(request, 'trades/index.html', {'trades': trades, 'form': form})
+   
+
 
 def trades(request):
     if request.method == 'GET':
@@ -121,6 +123,10 @@ def update_trade(request):
         )
     return HttpResponseRedirect(reverse("trades:index"))
 
+def populate_update_form(request, pk):
+    data = Trades.objects.filter(pk=pk)
+    context = {'update_trades': data}
+    return JsonResponse(list(data.values()), safe=False)
 
 def csv_write(request):
     response = HttpResponse(content_type='text/csv')

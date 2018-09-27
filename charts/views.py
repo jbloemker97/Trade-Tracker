@@ -2,11 +2,18 @@ from django.shortcuts import render
 from trades.models import Trades
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.db.models import Max
+
 
 @login_required
 def get_data(request):
     trades = Trades.objects.filter(user_id=request.user.id).order_by('exit_date')
     return JsonResponse(list(trades.values()), safe=False)
+
+def get_max_pnl(request):
+    max_trade = Trades.objects.filter(user_id=request.user.id).aggregate(Max('pnl'))
+    print(max_trade)
+    return JsonResponse(max_trade, safe=False)
 
 def index(request):
     trades = Trades.objects.filter(user_id=request.user.id).order_by('id')[:4]
