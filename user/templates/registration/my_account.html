@@ -9,6 +9,11 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
+                    <div class="col-lg-12 text-right">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#accountModal">Update Profile</button>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-lg-12 text-center">
                         {% load static %}<img src="{% static 'user/img/default_profile.jpg' %}" class="img-fluid">
                     </div>
@@ -33,6 +38,7 @@
         </div>
     </div>
 </div>
+{% include 'registration/account_form.html' %}
 {% else %}
 <p>Please Log in</p>
 {% endif %}

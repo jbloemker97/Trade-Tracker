@@ -19,3 +19,5 @@ def register(request):
 
 def account(request):
     return render(request, 'registration/my_account.html')
+
+

@@ -1,0 +1,35 @@
+<!-- Modal -->
+<div class="modal fade" id="accountModal" tabindex="-1" role="dialog" aria-labelledby="accountModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="accountModalLabel">Update Profile</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form method="post"> 
+                <div class="form-group">
+                    <div class="form-group col-lg-12">
+                        <label for="profileImage">Choose a Profile Image</label><br>
+                        <input type="file" class="form-control" id="profileImage">
+                    </div>
+                </div>
+                <div class="form-group col-lg-12">
+                    <label for="profileName">Full Name</label><br>
+                    <input type="text" class="form-control" id="profileName">
+                </div>
+                <div class="form-group col-lg-12">
+                    <label for="profileAccountBalance">Account Balance</label><br>
+                    <input type="number" class="form-control" id="profileAccountBalance">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+        </div>
+    </div>
+</div>
