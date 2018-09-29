@@ -9,27 +9,40 @@
             </button>
         </div>
         <div class="modal-body">
-            <form method="post"> 
+            <form method="post" action="{% url 'user:my_account' %}">{% csrf_token %}
+                {% for field in form %}
                 <div class="form-group">
                     <div class="form-group col-lg-12">
+                        <label for="profileImage">{{ field.label }}</label><br>
+                        {{ field }}
+                    </div>
+                    </div>
+                {% endfor %}
+                <!-- <div class="form-group">
+                    <div class="form-group col-lg-12">
                         <label for="profileImage">Choose a Profile Image</label><br>
-                        <input type="file" class="form-control" id="profileImage">
+                        <input type="file" class="form-control" id="profileImage" name="{{ form.profile_image.name }}">
                     </div>
                 </div>
                 <div class="form-group col-lg-12">
                     <label for="profileName">Full Name</label><br>
-                    <input type="text" class="form-control" id="profileName">
+                    <input type="text" class="form-control" id="profileName" name="{{ form.full_name.name }}">
                 </div>
                 <div class="form-group col-lg-12">
                     <label for="profileAccountBalance">Account Balance</label><br>
-                    <input type="number" class="form-control" id="profileAccountBalance">
+                    <input type="number" class="form-control" id="profileAccountBalance" name="{{ form.account_balance.name }}">
+                </div>
+                <div class="form-group col-lg-12">
+                    <label for="profileAccountBalance">Starting Balance</label><br>
+                    <input type="number" class="form-control" id="profileAccountBalance" name="{{ form.starting_balance.name }}">
+                </div> -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
             </form>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+        
         </div>
     </div>
 </div>
