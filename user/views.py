@@ -5,6 +5,8 @@ from django.http import HttpResponseRedirect
 from .forms import UpdateProfileForm
 from .models import Profile
 from django.urls import reverse
+from django.conf import settings
+
 
 def register(request):
     if request.method == 'POST':
@@ -22,12 +24,14 @@ def register(request):
 
 def account(request):
     if request.method == 'POST':
-        form = UpdateProfileForm(request.POST)
+        form = UpdateProfileForm(request.POST, request.FILES)
 
         full_name = request.POST.get('full_name')
-        profile_image = request.POST.get('profile_image')
+        profile_image = request.FILES.get('profile_image')
         account_balance = request.POST.get('account_balance')
         starting_balance = request.POST.get('starting_balance')
+
+        print(profile_image)
 
         profile, created = Profile.objects.get_or_create(
             user=request.user,
@@ -51,7 +55,14 @@ def account(request):
         return HttpResponseRedirect(reverse('user:my_account'))
     else:
         form = UpdateProfileForm()
-        context = { 'form': form }
+        data = Profile.objects.filter(user=request.user)
+        context = { 
+            'form': form,
+            'data': data 
+        }
+        print(settings.MEDIA_URL)
+        print(settings.MEDIA_ROOT)
+
         return render(request, 'registration/my_account.html', context)
 
 
