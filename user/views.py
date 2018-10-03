@@ -31,8 +31,6 @@ def account(request):
         account_balance = request.POST.get('account_balance')
         starting_balance = request.POST.get('starting_balance')
 
-        print(profile_image)
-
         profile, created = Profile.objects.get_or_create(
             user=request.user,
             defaults={
@@ -44,24 +42,27 @@ def account(request):
         )
 
         if not created:
-            Profile.objects.filter(user_id=request.user.id).update(
-                user=request.user,
-                full_name=full_name,
-                profile_image=profile_image,
-                account_balance=account_balance,
-                starting_balance=starting_balance
-            )
+            user_profile = Profile.objects.get(user=request.user)
+            user_profile.user = request.user
+            user_profile.full_name = full_name
+            user_profile.profile_image = profile_image
+            user_profile.account_balance = account_balance
+            user_profile.starting_balance = starting_balance
+            user_profile.save()
 
         return HttpResponseRedirect(reverse('user:my_account'))
     else:
-        form = UpdateProfileForm()
-        data = Profile.objects.filter(user=request.user)
+        data = Profile.objects.filter(user_id=request.user.id)
+        form = UpdateProfileForm(initial={'profile_image': data[0].profile_image, 'full_name': data[0].full_name, 'account_balance': data[0].account_balance, 'starting_balance': data[0].starting_balance})
         context = { 
             'form': form,
             'data': data 
         }
-        print(settings.MEDIA_URL)
-        print(settings.MEDIA_ROOT)
+
+        # Determine % change
+        if data[0]:
+            percent_change = ((data[0].account_balance - data[0].starting_balance) / data[0].starting_balance) * 100
+            context['percent_change'] = percent_change
 
         return render(request, 'registration/my_account.html', context)
 
