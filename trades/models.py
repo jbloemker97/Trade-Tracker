@@ -20,6 +20,7 @@ class Trades(models.Model):
     entry_comments = models.CharField(max_length=500)
     exit_comments = models.CharField(max_length=500, blank=True, null=True)
     success = models.CharField(max_length=10)
+    account_balance = models.FloatField(blank=True, null=True)
 
     def __str__(self):
         return self.ticker

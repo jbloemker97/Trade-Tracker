@@ -6,6 +6,7 @@ from .forms import UpdateProfileForm
 from .models import Profile
 from django.urls import reverse
 from django.conf import settings
+from trades.models import Trades
 
 
 def register(request):
@@ -49,6 +50,10 @@ def account(request):
             user_profile.account_balance = account_balance
             user_profile.starting_balance = starting_balance
             user_profile.save()
+
+            trades_account_balance = Trades.objects.latest("account_balance")
+            trades_account_balance.account_balance = user_profile.account_balance
+            trades_account_balance.save()
 
         return HttpResponseRedirect(reverse('user:my_account'))
     else:

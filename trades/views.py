@@ -10,6 +10,7 @@ import csv
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.db.models import F
+import decimal
 
 @login_required
 def index(request):
@@ -52,6 +53,9 @@ def trades(request):
                     success = True
 
             success = 'success' if success else 'fail'
+
+            Profile.objects.filter(user_id=request.user.id).update(account_balance=F("account_balance")+pnl)
+            account_balance = Profile.objects.get(user=request.user).account_balance
                 
             Trades.objects.create(
                 user_id=request.user.id,
@@ -65,10 +69,9 @@ def trades(request):
                 pnl=pnl,
                 entry_comments=entry_comments,
                 exit_comments=exit_comments,
-                success=success
+                success=success,
+                account_balance=account_balance
             ).save()
-
-            Profile.objects.filter(user_id=request.user.id).update(account_balance=F("account_balance")+pnl)
 
             return HttpResponseRedirect(reverse("trades:index"))
 
@@ -77,6 +80,13 @@ def trades(request):
 def delete_trade(request, pk):
     if request.method == 'DELETE':
         trade = get_object_or_404(Trades, pk=pk)
+        if trade.pnl >= 0:
+            trade.account_balance = decimal.Decimal(trade.account_balance) - decimal.Decimal(trade.pnl)
+            Profile.objects.filter(user=request.user).update(account_balance=trade.account_balance)
+        else:
+            trade.account_balance = decimal.Decimal(trade.account_balance) + decimal.Decimal(trade.pnl)
+            Profile.objects.filter(user=request.user).update(account_balance=trade.account_balance)
+        
         trade.delete()
 
     return HttpResponse(status=200)
