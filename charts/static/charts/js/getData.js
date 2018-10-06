@@ -11,6 +11,21 @@ $.ajax({
     biggestPnl.innerHTML = "$" + Math.round(res.pnl__max * 100) / 100;
 });
 
+// PnL
+$.ajax({
+    url: "/charts/data/",
+    method: "GET",
+    error: function (res) {
+        console.log(res);
+    }
+})
+.done(function (res) {
+    console.log(res);
+    console.log(res[res.length-1].account_balance)
+    let pnl = document.getElementById("charts-pnl");
+    pnl.innerHTML = "$" + res[res.length - 1].account_balance;
+});
+
 // Trades PnL
 $.ajax({
     url: "/charts/data",
@@ -21,9 +36,9 @@ $.ajax({
         let pricesPerDate = {};
         res.forEach(el => {
             if (el.exit_date in pricesPerDate) {
-                pricesPerDate[el.exit_date] += parseInt(el.pnl);
+                pricesPerDate[el.exit_date] += parseInt(el.account_balance);
             }else {
-                pricesPerDate[el.exit_date] = parseInt(el.pnl);
+                pricesPerDate[el.exit_date] = parseInt(el.account_balance);
             }
         });
 
