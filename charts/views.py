@@ -3,6 +3,7 @@ from trades.models import Trades
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.db.models import Max
+from user.models import Profile
 
 
 @login_required
@@ -12,7 +13,6 @@ def get_data(request):
 
 def get_max_pnl(request):
     max_trade = Trades.objects.filter(user_id=request.user.id).aggregate(Max('pnl'))
-    print(max_trade)
     return JsonResponse(max_trade, safe=False)
 
 def index(request):
@@ -21,3 +21,7 @@ def index(request):
         'trades': trades
     }
     return render(request, 'charts/charts.html', context)
+
+def get_future_pnl(request):
+    user = Profile.objects.select_related('user_id').all()
+    return JsonResponse(list(user.values()), safe=False)

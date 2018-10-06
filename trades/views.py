@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .forms import EntryForm
 from .models import Trades
+from user.models import Profile
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.views.generic.edit import UpdateView
 import datetime
@@ -8,6 +9,7 @@ from django.urls import reverse
 import csv
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.db.models import F
 
 @login_required
 def index(request):
@@ -65,6 +67,8 @@ def trades(request):
                 exit_comments=exit_comments,
                 success=success
             ).save()
+
+            Profile.objects.filter(user_id=request.user.id).update(account_balance=F("account_balance")+pnl)
 
             return HttpResponseRedirect(reverse("trades:index"))
 
