@@ -25,3 +25,8 @@ def index(request):
 def get_future_pnl(request):
     user = Profile.objects.select_related('user_id').all()
     return JsonResponse(list(user.values()), safe=False)
+
+def get_winning_percentage(request):
+    wins = Trades.objects.filter(success="success").count()
+    loses = Trades.objects.filter(success="fail").count()
+    return JsonResponse(wins / (wins + loses), safe=False)

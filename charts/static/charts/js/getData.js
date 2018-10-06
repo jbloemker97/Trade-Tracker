@@ -20,11 +20,23 @@ $.ajax({
     }
 })
 .done(function (res) {
-    console.log(res);
-    console.log(res[res.length-1].account_balance)
     let pnl = document.getElementById("charts-pnl");
     pnl.innerHTML = "$" + res[res.length - 1].account_balance;
 });
+
+// Winning Percentage
+$.ajax({
+    url: "/charts/data/wins",
+    method: "GET",
+    error: function (res) {
+        console.log(res);
+    },
+    success: function (res) {
+        let winPercent = document.getElementById("winningPercentage");
+        winPercent.innerHTML = res * 100 + "%";
+    }
+})
+
 
 // Trades PnL
 $.ajax({
@@ -72,45 +84,6 @@ $.ajax({
         console.log(err);
     }
 });
-
-// Compounded Growth
-$.ajax({
-    url: "/charts/data",
-    method: "GET",
-    success: function (res) {
-        let finalizedData = [];
-        res.forEach(el => {
-            finalizedData.push(parseInt(el.pnl));
-        });
-    
-        var ctx = document.getElementById("compoundedGrowth").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ["Red", "Blue", "Yellow"],
-                datasets: [{
-                    label: 'PNL',
-                    data: finalizedData.sort((a, b) => a - b),
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
-            }
-        });
-    },
-    error: function (err) {
-        console.log(err)
-    }
-});
-
-
-
 
 let date_sort_asc = function (date1, date2) {
     if (date1 > date2) return 1;
