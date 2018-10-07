@@ -2,3 +2,19 @@
     border-radius: 4px;
     max-width: 220px;
 }
+
+.navbar {
+    background: #3A6691;
+}
+
+
+/***********
+BOOTSTRAP DEFAULTS
+************/
+.btn-success,
+.btn-info,
+.btn-primary {
+    background: #3A6691 !important;
+    border-color: #3A6691 !important;
+
+}

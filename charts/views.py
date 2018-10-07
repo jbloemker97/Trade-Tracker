@@ -29,4 +29,9 @@ def get_future_pnl(request):
 def get_winning_percentage(request):
     wins = Trades.objects.filter(success="success").count()
     loses = Trades.objects.filter(success="fail").count()
-    return JsonResponse(wins / (wins + loses), safe=False)
+    context = {
+        'wins': wins,
+        'losses': loses,
+        'percent': wins / (wins + loses)
+    }
+    return JsonResponse(context, safe=False)

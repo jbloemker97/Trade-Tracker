@@ -24,7 +24,7 @@ $.ajax({
     pnl.innerHTML = "$" + res[res.length - 1].account_balance;
 });
 
-// Winning Percentage
+// Counts & Winning Percentage
 $.ajax({
     url: "/charts/data/wins",
     method: "GET",
@@ -32,8 +32,14 @@ $.ajax({
         console.log(res);
     },
     success: function (res) {
+        console.log(res)
         let winPercent = document.getElementById("winningPercentage");
-        winPercent.innerHTML = res * 100 + "%";
+        let winCount = document.getElementById("win-count");
+        let loseCount = document.getElementById("lose-count");
+
+        winCount.innerHTML = res["wins"];
+        loseCount.innerHTML = res["losses"];
+        winPercent.innerHTML = res["percent"] * 100 + "%";
     }
 })
 
@@ -66,6 +72,7 @@ $.ajax({
                 labels: labels,
                 datasets: [{
                     label: 'PNL',
+                    fillColor : "#ffff00",
                     data: finalizedData,
                 }]
             },

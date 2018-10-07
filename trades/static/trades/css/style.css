@@ -21,3 +21,44 @@ html, body {
 .fail {
     color: red;
 }
+
+/***********
+BOOTSTRAP DEFAULTS
+************/
+.btn-success,
+.btn-info {
+    background: #3A6691 !important;
+    border-color: #3A6691 !important;
+}
+
+
+
+/***********
+NAV BAR
+************/
+
+.navbar {
+    background: #3A6691;
+}
+
+.navbar a:hover {
+    opacity: 0.7;
+}
+
+
+.background-image {
+    background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) ), url('/static/trades/img/tradesLP.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    min-height: 300px;
+}
+
+/***********
+TABLE
+************/
+.thead {
+    background: #3A6691;
+    color: #fff;
+}
